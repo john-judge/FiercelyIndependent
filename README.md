@@ -1,12 +1,4 @@
-# HowScenicAmEye
-Website displays random Google Streetviews and asks user for ratings.
+# DatabaseBackedTutorial
+python anywhere database-backed website: basic
 
-Functions:
-- generate random streetview
-- generate random highly scenic streetview
-
-Requested user input:
-- Scenic beauty rating
-- Coast, desert, alpine, mountainous, urban, pastoral? (check all that apply)
-
-
+https://blog.pythonanywhere.com/121/
