@@ -11,6 +11,7 @@
         <title>Data-Backed Test</title>
     </head>
 
+
     <body>
         <nav class="navbar navbar-inverse">
         <div class="container">
@@ -36,6 +37,16 @@
             </ul>
         </div>
         </nav>
+
+
+    <p align="center">
+        <canvas id="board" width="600" height="600"
+                style="border:3px solid #000000" style="display:none">
+            Your browser does not support canvas. Get a new browser.
+        </canvas>
+    <p>
+
+
 
         <div class="container">
         {% for comment in comments %}
@@ -78,21 +89,17 @@
 
         </div class="container">
 
+        <script src="{{ url_for('static',filename='/js/graph.js') }}"></script>
 
 
-
-
-        <!-- Dracula graph theory tools https://www.graphdracula.net/ -->
-        <script
-            type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/graphdracula/1.0.3/dracula.min.js">
+        <script>
+        //startGame();
+        const boardCanvas = document.getElementById('board');
+        boardCanvas.addEventListener('click', function(event) {
+            var clickedPxLoc = get_click_location(boardCanvas,event);
+            //boardCanvas.gameState.handleClick(clickedPxLoc);
+        } );
         </script>
-
-
-
-
-        <script src="{{ url_for('static',filename='/js/graph.js) }}"></script>
-
 
 
     </body>
