@@ -1,30 +1,6 @@
 
 
 
-class Loc {
-    /* pixel location */
-
-    constructor(i,j) {
-        this.i = i;
-        this.j = j;
-    }
-
-    locEquals(loc2) {
-        /* is LOC equivalent to arg LOC2? */
-        return ((this.i == loc2.i) && (this.j == loc2.j));
-    }
-}
-
-
-
-function getClickLocation(canvas, event) {
-    var bounds = canvas.getBoundingClientRect();
-    var x = event.clientX - bounds.left;
-    var y = event.clientY - bounds.top;
-    var loc = new Loc(x,y);
-    return loc;
-}
-
 /*
 function printReadout(message) {
     var readout = document.getElementById('readout');
@@ -41,8 +17,9 @@ class Graph {
         this.nodeRadius = screenSize / (10 * nVertices);
     }
 
-    handleClick(clickPxLoc) {
+    handleClick(clickPxLoc,button) {
         console.log(clickPxLoc);
+        console.log("pressed:" + button); // 0 is left, 2 is right
 
     }
 

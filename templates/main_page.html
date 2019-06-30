@@ -91,13 +91,15 @@
 
         <script src="{{ url_for('static',filename='/js/graph.js') }}"></script>
 
+        <script src="{{ url_for('static',filename='/js/loc.js') }}"></script>
+
 
         <script>
         startGame();
         const graphCanvas = document.getElementById('graph');
         graphCanvas.addEventListener('mousedown', function(event) {
             var clickedPxLoc = getClickLocation(graphCanvas,event);
-            graphCanvas.gameState.handleClick(clickedPxLoc);
+            graphCanvas.gameState.handleClick(clickedPxLoc, event.button);
         }, {
             capture: true,
             passive: true} );
@@ -105,7 +107,7 @@
 
         function startGame() {
             const graphCanvas = document.getElementById('graph');
-            graphCanvas.gameState = new Graph(500,[[0,1,1],[1,0,0],[1,0,0]], 3);
+            graphCanvas.gameState = new Graph(600,[[0,1,1],[1,0,0],[1,0,0]], 3);
 
         }
         </script>
