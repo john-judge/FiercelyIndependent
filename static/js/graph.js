@@ -9,12 +9,14 @@ function printReadout(message) {
 
 class Graph {
 
-    constructor(screenSize, adjacencyMatrix, nVertices) {
-        this.validateAdjacencyMatrix();
+    constructor(screenSize, nVertices, density) {
         this.screenSize = screenSize;
-
-        this.adjMat = adjacencyMatrix;
         this.nVertices = nVertices;
+        this.density = density;
+
+        this.generateRandomAdjacencyMatrix();
+        this.validateAdjacencyMatrix();
+        this.printAdjacencyMatrix();
 
         this.nodeLocs = this.initNodeLocations();
         this.indepNum = this.getIndependenceNumber();
@@ -22,10 +24,24 @@ class Graph {
         this.selectedNodes = [];
     }
 
-    handleClick(clickPxLoc,button) {
-        console.log(clickPxLoc);
-        console.log("pressed:" + button); // 0 is left, 2 is right
-
+    generateRandomAdjacencyMatrix() {
+        this.adjMat = [];
+        for(var i = 0; i < this.nVertices; i++) {
+            this.adjMat.push([]);
+            for(var j = 0; j < this.nVertices; j++) {
+                if (i > j) {
+                    this.adjMat[i].push(this.adjMat[j][i]);
+                } else {
+                    if (i == j) {
+                        this.adjMat[i].push(0);
+                    } else if (Math.random() > this.density) {
+                        this.adjMat[i].push(1);
+                    } else {
+                        this.adjMat[i].push(0);
+                    }
+                }
+            }
+        }
     }
 
     validateAdjacencyMatrix() {
@@ -41,6 +57,12 @@ class Graph {
                     throw "asymmetric adj mat";
                 }
             }
+        }
+    }
+
+    printAdjacencyMatrix() {
+        for(var i = 0; i < this.nVertices; i++) {
+            console.log(this.adjMat[i]);
         }
     }
 

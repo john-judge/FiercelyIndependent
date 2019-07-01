@@ -4,15 +4,20 @@
 
 class GraphGraphics extends Graph {
 
-    constructor(screenSize, adjacencyMatrix, nVertices) {
+    constructor(screenSize, nVertices, density) {
 
-        super(screenSize, adjacencyMatrix, nVertices);
+        super(screenSize, nVertices, density);
 
         this.greenColor = "#178A32";
         this.blueColor = "#0E17D8";
         this.blackColor = "#000000";
     }
 
+    handleClick(clickPxLoc,button) {
+        console.log(clickPxLoc);
+        console.log("pressed:" + button); // 0 is left, 2 is right
+
+    }
 
 
     initNodeLocations() {

@@ -109,7 +109,10 @@
 
         function startGame() {
             const graphCanvas = document.getElementById('graph');
-            graphCanvas.gameState = new GraphGraphics(600,[[0,1,1],[1,0,0],[1,0,0]], 3);
+            var nVertices = 3;
+            var density = 0.5;
+            var canvasSize = 600;
+            graphCanvas.gameState = new GraphGraphics(canvasSize, nVertices, density);
             graphCanvas.gameState.initPrint();
         }
         </script>
