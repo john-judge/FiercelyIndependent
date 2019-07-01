@@ -15,7 +15,7 @@ class GraphGraphics extends Graph {
 
         this.screenSize = screenSize;
         this.nodeLocs = this.initNodeLocations();
-        this.nodeRadius = screenSize / (10 * nVertices);
+        this.nodeRadius = screenSize / 40;
         this.selectedNodes = [];
 
         this.greenColor = "#178A32";
@@ -25,9 +25,7 @@ class GraphGraphics extends Graph {
 
     locToNodeIndex(loc) {
         // return node index if location is inside node. Else, return null
-        console.log("searching for nearby nodes");
         for (var i = 0; i < this.nVertices; i++) {
-            console.log(this.nodeLocs[i]);
             var distance = locDistance(loc,this.nodeLocs[i]);
             if(distance <= this.nodeRadius) {
                 return i;
@@ -51,15 +49,35 @@ class GraphGraphics extends Graph {
         }
     }
 
+    isLegalSelection(node) {
+        // is the node independent with the current THIS.SELECTEDNODES?
+        for(var i = 0; i < this.selectedNodes.length; i++) {
+            var nd = this.selectedNodes[i];
+            console.log(nd);
+            if(this.areAdjacent(nd,node)) {
+                console.log("" + nd + " and " + node + " are adj");
+                return false;
+            }
+        }
+        return true;
+    }
+
     handleClick(clickPxLoc,button) {
-        console.log(clickPxLoc);
         //console.log("pressed:" + button); // 0 is left, 2 is right
         var nd = this.locToNodeIndex(clickPxLoc);
         if (nd != null) {
             if(!this.selectedNodes.includes(nd)) {
-                var ndLoc = this.nodeLocs[nd];
-                this.selectNode(nd);
-                this.printNode(ndLoc, this.blueColor);
+                if(this.isLegalSelection(nd)) {
+                    var ndLoc = this.nodeLocs[nd];
+                    this.selectNode(nd);
+                    console.log(nd + " is indep in selected set:" + this.selectedNodes);
+                    this.printNode(ndLoc, this.blueColor);
+                    if(this.isPuzzleSolved()) {
+                        alert("puzzle is solved.");
+                        this.clearCanvas();
+                        startGame();
+                    }
+                }
             } else {
                 var ndLoc = this.nodeLocs[nd];
                 this.deselectNode(nd);
@@ -67,7 +85,6 @@ class GraphGraphics extends Graph {
             }
         }
     }
-
 
     initNodeLocations() {
         var nodeLcs = [];
@@ -113,7 +130,12 @@ class GraphGraphics extends Graph {
         ctx.moveTo(ix, iy);
         ctx.lineTo(jx, jy);
         ctx.stroke();
+    }
 
+    clearCanvas() {
+        var g  = document.getElementById('graph');
+        const ctx = g.getContext('2d');
+        ctx.clearRect(0,0,g.width,g.height);
     }
 
     initPrint() {

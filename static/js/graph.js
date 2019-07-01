@@ -19,6 +19,7 @@ class Graph {
         this.printAdjacencyMatrix();
 
         this.indepNum = this.getIndependenceNumber();
+        console.log("indep num: " + this.indepNum);
 
     }
 
@@ -32,7 +33,7 @@ class Graph {
                 } else {
                     if (i == j) {
                         this.adjMat[i].push(0);
-                    } else if (Math.random() > this.density) {
+                    } else if (Math.random() < this.density) {
                         this.adjMat[i].push(1);
                     } else {
                         this.adjMat[i].push(0);
@@ -85,13 +86,11 @@ class Graph {
     }
 
     isPuzzleSolved() {
-        return isIndepedentSet(this.selectedNodes)
-                && this.selectedNodes.length == this.indepNum;
+        return (this.selectedNodes.length == this.indepNum);
     }
 
-
     getIndependenceNumber() {
-        this.internalIndepNum([],this.nVertices-1,0);
+        return this.internalIndepNum([],this.nVertices-1,0);
     }
 
     internalIndepNum(fixedList,upTo,currMax) {
