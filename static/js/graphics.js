@@ -42,14 +42,29 @@ class GraphGraphics extends Graph {
         }
     }
 
+    deselectNode(i) {
+        for(var j = 0; j < this.selectedNodes.length; j++) {
+            if(this.selectedNodes[j] == i) {
+                this.selectedNodes.splice(j,1);
+                i--;
+            }
+        }
+    }
+
     handleClick(clickPxLoc,button) {
         console.log(clickPxLoc);
         //console.log("pressed:" + button); // 0 is left, 2 is right
         var nd = this.locToNodeIndex(clickPxLoc);
         if (nd != null) {
-            var ndLoc = this.nodeLocs[nd];
-            this.selectNode(nd);
-            this.printNode(ndLoc, this.blueColor);
+            if(!this.selectedNodes.includes(nd)) {
+                var ndLoc = this.nodeLocs[nd];
+                this.selectNode(nd);
+                this.printNode(ndLoc, this.blueColor);
+            } else {
+                var ndLoc = this.nodeLocs[nd];
+                this.deselectNode(nd);
+                this.printNode(ndLoc, this.greenColor);
+            }
         }
     }
 
