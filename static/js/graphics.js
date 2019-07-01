@@ -1,4 +1,9 @@
 
+function locDistance(loc1,loc2) {
+    var i2 = Math.pow((loc1.i - loc2.i), 2);
+    var j2 = Math.pow((loc1.j - loc2.j), 2);
+    return Math.sqrt(i2 + j2);
+}
 
 
 
@@ -18,27 +23,47 @@ class GraphGraphics extends Graph {
         this.blackColor = "#000000";
     }
 
-    locToNode(loc) {
+    locToNodeIndex(loc) {
         // return node index if location is inside node. Else, return null
+        console.log("searching for nearby nodes");
+        for (var i = 0; i < this.nVertices; i++) {
+            console.log(this.nodeLocs[i]);
+            var distance = locDistance(loc,this.nodeLocs[i]);
+            if(distance <= this.nodeRadius) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    selectNode(i) {
+        if (i != null) {
+            this.selectedNodes.push(i);
+        }
     }
 
     handleClick(clickPxLoc,button) {
         console.log(clickPxLoc);
         //console.log("pressed:" + button); // 0 is left, 2 is right
-
+        var nd = this.locToNodeIndex(clickPxLoc);
+        if (nd != null) {
+            var ndLoc = this.nodeLocs[nd];
+            this.selectNode(nd);
+            this.printNode(ndLoc, this.blueColor);
+        }
     }
 
 
     initNodeLocations() {
         var nodeLcs = [];
         var partAngle = (2 * Math.PI / this.nVertices);
-        var center = new Loc(this.screenSize / 2, this.screenSize / 2);
+        var half = this.screenSize / 2;
         for(var i = 0; i < this.nVertices; i++) {
             // arrange in a circle by default
             var radius = this.screenSize / 3;
             var theta = i * partAngle;
-            var x = radius * Math.cos(theta);
-            var y = radius * Math.sin(theta);
+            var x = radius * Math.cos(theta) + half;
+            var y = radius * Math.sin(theta) + half;
             var nodeLc = new Loc(x,y);
             nodeLcs.push(nodeLc);
         }
@@ -50,8 +75,8 @@ class GraphGraphics extends Graph {
         var ctx = b.getContext('2d');
         ctx.beginPath();
         ctx.fillStyle = color;
-        var i = loc.i + this.screenSize / 2;
-        var j = loc.j + this.screenSize / 2;
+        var i = loc.i;
+        var j = loc.j;
         ctx.arc(i,j,this.nodeRadius,0, 2 * Math.PI);
         ctx.fill();
         ctx.fillStyle = this.blackColor;
@@ -60,17 +85,16 @@ class GraphGraphics extends Graph {
     }
 
     printEdge(i,j,color) {
-        console.log("try to print edge");
         var loc0 = this.nodeLocs[i];
         var loc1 = this.nodeLocs[j];
         var b = document.getElementById('graph');
         var ctx = b.getContext('2d');
         ctx.beginPath();
         ctx.fillStyle = color;
-        var ix = loc0.i + this.screenSize / 2;
-        var iy = loc0.j + this.screenSize / 2;
-        var jx = loc1.i + this.screenSize / 2;
-        var jy = loc1.j + this.screenSize / 2;
+        var ix = loc0.i;
+        var iy = loc0.j;
+        var jx = loc1.i;
+        var jy = loc1.j;
         ctx.moveTo(ix, iy);
         ctx.lineTo(jx, jy);
         ctx.stroke();
@@ -95,10 +119,8 @@ class GraphGraphics extends Graph {
 
     initPrintNodes() {
         for(var i = 0; i < this.nVertices; i++) {
-            console.log("try to print node  at " + this.nodeLocs[i]);
             this.printNode(this.nodeLocs[i],this.greenColor);
         }
-
     }
 
 

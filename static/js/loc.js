@@ -15,6 +15,7 @@ class Loc {
 
 
 
+
 function getClickLocation(canvas, event, screenSize) {
     var bounds = canvas.getBoundingClientRect();
     var x = event.clientX - bounds.left;
