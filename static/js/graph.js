@@ -90,24 +90,24 @@ class Graph {
     }
 
     getIndependenceNumber() {
-        return this.internalIndepNum([],this.nVertices-1,0);
+        return this.internalIndepNum([],0);
     }
 
-    internalIndepNum(fixedList,upTo,currMax) {
+    internalIndepNum(buildList,consideredYet) {
         /* returns independence number (naive brute force, NP-hard)
             by checking all 2^n possible independent sets */
-        if(upTo == 0) {
-            if(this.isIndependentSet(fixedList)) {
-                return Math.max(fixedList.length,currMax);
+        if(consideredYet == this.nVertices) {
+            if(this.isIndependentSet(buildList)) {
+                return buildList.length;
             } else {
-                return currMax;
+                return 0;
             }
         }
-        var nextUpTo = upTo - 1;
-        var maxWithout = this.internalIndepNum(fixedList,nextUpTo,currMax);
-        fixedList.push(nextUpTo);
-        var maxWith = this.internalIndepNum(fixedList,nextUpTo,currMax);
-        return Math.max(maxWithout,maxWith,currMax);
+        var considerNext = consideredYet + 1;
+        var maxWithout = this.internalIndepNum(buildList,considerNext);
+        buildList.push(consideredYet);
+        var maxWith = this.internalIndepNum(buildList,considerNext);
+        return Math.max(maxWithout,maxWith);
     }
 }
 
