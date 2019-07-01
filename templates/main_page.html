@@ -8,7 +8,7 @@
             href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
             integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
             crossorigin="anonymous">
-        <title>Data-Backed Test</title>
+        <title>Fiercely Independent: The Game</title>
     </head>
 
 
@@ -26,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">My scratchpad</a>
+                <a class="navbar-brand" href="#">Fiercely Independent</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
@@ -91,6 +91,8 @@
 
         <script src="{{ url_for('static',filename='/js/graph.js') }}"></script>
 
+        <script src="{{ url_for('static',filename='/js/graphics.js') }}"></script>
+
         <script src="{{ url_for('static',filename='/js/loc.js') }}"></script>
 
 
@@ -107,8 +109,8 @@
 
         function startGame() {
             const graphCanvas = document.getElementById('graph');
-            graphCanvas.gameState = new Graph(600,[[0,1,1],[1,0,0],[1,0,0]], 3);
-
+            graphCanvas.gameState = new GraphGraphics(600,[[0,1,1],[1,0,0],[1,0,0]], 3);
+            graphCanvas.gameState.initPrint();
         }
         </script>
 

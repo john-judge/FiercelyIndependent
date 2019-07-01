@@ -8,13 +8,18 @@ function printReadout(message) {
 }*/
 
 class Graph {
+
     constructor(screenSize, adjacencyMatrix, nVertices) {
+        this.validateAdjacencyMatrix();
         this.screenSize = screenSize;
+
         this.adjMat = adjacencyMatrix;
         this.nVertices = nVertices;
+
         this.nodeLocs = this.initNodeLocations();
-        this.indepNum = this.initIndependenceNumber();
+        this.indepNum = this.getIndependenceNumber();
         this.nodeRadius = screenSize / (10 * nVertices);
+        this.selectedNodes = [];
     }
 
     handleClick(clickPxLoc,button) {
@@ -23,16 +28,35 @@ class Graph {
 
     }
 
-    isValidAdjacencyMatrix() {
+    validateAdjacencyMatrix() {
         // is the adj matrix simple and undirected?
         for(var i = 0; i < this.nVertices; i++) {
             for(var j = 0; j < this.nVertices; j++) {
                 if(i == j) {
                     if (this.adjMat[i][i] != 0) {
-                        return false;
+                        throw "diagonals of adj mat must be 0";
                     }
                 }
                 if (this.adjMat[i][j] != this.adjMat[j][i]) {
+                    throw "asymmetric adj mat";
+                }
+            }
+        }
+    }
+
+    areAdjacent(i,j) {
+        // are i and j adjacent nodes?
+        return this.adjMat[i][j] == 1;
+    }
+
+    isIndependentSet(nodes) {
+        // is the array of node indices of an independent set?
+        var n = nodes.length;
+        for(var i = 0; i < n; i++) {
+            for(var j = i+1; j < n; j++) {
+                var nd1 = nodes[i];
+                var nd2 = nodes[j];
+                if(this.areAdjacent(nd1,nd2)) {
                     return false;
                 }
             }
@@ -40,52 +64,37 @@ class Graph {
         return true;
     }
 
-    areAdjacent(i,j) {
-        // are i and j adjacent nodes?
-        return this.adjMat[i][j]
+    isPuzzleSolved() {
+        return isIndepedentSet(this.selectedNodes)
+                && this.selectedNodes.length == this.indepNum;
     }
 
-    isIndependentSet(nodes) {
-        // is the array NODES a list of indices of an independent set?
-        var n = nodes.length;
-        for(var i = 0; i < n; i++) {
-            for(var j = 0; j < n; j++) {
 
-            }
-
-        }
+    getIndependenceNumber() {
+        this.internalIndepNum([],this.nVertices-1,0);
     }
 
-    initIndependenceNumber() {
+    internalIndepNum(fixedList,upTo,currMax) {
         /* returns independence number (naive brute force, NP-hard)
-            by checking every possible independent set */
-    }
-
-    initNodeLocations() {
-        var nodeLcs = [];
-        var partAngle = (360 / this.nVertices);
-        var center = new Loc(this.screenSize / 2, this.screenSize / 2);
-        for(var i = 0; i < this.nVertices; i++) {
-            // arrange in a circle by default
-            var radius = this.screenSize / 3;
-            var theta = i * partAngle;
-            var nodeLc = new Loc(radius * Math.cos(theta),radius * Math.sin(theta));
-            nodeLcs.push(nodeLc)
+            by checking all 2^n possible independent sets */
+        if(upTo == 0) {
+            if(this.isIndependentSet(fixedList)) {
+                return Math.max(fixedList.length,currMax);
+            } else {
+                return currMax;
+            }
         }
-        return nodeLcs;
+        var nextUpTo = upTo - 1;
+        var maxWithout = this.internalIndepNum(fixedList,nextUpTo,currMax);
+        fixedList.push(nextUpTo);
+        var maxWith = this.internalIndepNum(fixedList,nextUpTo,currMax);
+        return Math.max(maxWithout,maxWith,currMax);
     }
-
-    printNode(loc) {
-        var b = document.getElementById('graph');
-    }
-
-    initPrintEdges() {
-
-    }
-
-    initPrintNodes() {
-
-    }
-
-
 }
+
+
+
+
+
+
+
