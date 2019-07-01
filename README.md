@@ -4,6 +4,7 @@ Website hosted with pythonanywhere.com [here (under development)](http://jjudge.
 
 The goal of this web app game is to provide a discovery-based, fun, visual introduction to the complexity NP-hard problems. The user is asked to manually find a largest independent set in a randomly-generated unweighted, undirected graph. The puzzles will become increasingly large and edge-dense, familiarizing the user with a detailed understanding of the complexity of NP-complete problems. 
 
+![Prototype demo image.](fierceIndpDemo.png)
 
 On initialization, a graph will be randomly generated within the graph size and density specifications. The graph independence number will be computed and stored. The nodes will be drawn evenly spaced on a circle whose radius is about 1/3
 of the square canvas element side length. The edges between nodes will be drawn as specified by the adjacency matrix.
