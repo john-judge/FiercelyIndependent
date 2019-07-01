@@ -6,16 +6,25 @@ class GraphGraphics extends Graph {
 
     constructor(screenSize, nVertices, density) {
 
-        super(screenSize, nVertices, density);
+        super(nVertices, density);
+
+        this.screenSize = screenSize;
+        this.nodeLocs = this.initNodeLocations();
+        this.nodeRadius = screenSize / (10 * nVertices);
+        this.selectedNodes = [];
 
         this.greenColor = "#178A32";
         this.blueColor = "#0E17D8";
         this.blackColor = "#000000";
     }
 
+    locToNode(loc) {
+        // return node index if location is inside node. Else, return null
+    }
+
     handleClick(clickPxLoc,button) {
         console.log(clickPxLoc);
-        console.log("pressed:" + button); // 0 is left, 2 is right
+        //console.log("pressed:" + button); // 0 is left, 2 is right
 
     }
 

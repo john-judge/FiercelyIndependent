@@ -9,8 +9,8 @@ function printReadout(message) {
 
 class Graph {
 
-    constructor(screenSize, nVertices, density) {
-        this.screenSize = screenSize;
+    constructor( nVertices, density) {
+
         this.nVertices = nVertices;
         this.density = density;
 
@@ -18,10 +18,8 @@ class Graph {
         this.validateAdjacencyMatrix();
         this.printAdjacencyMatrix();
 
-        this.nodeLocs = this.initNodeLocations();
         this.indepNum = this.getIndependenceNumber();
-        this.nodeRadius = screenSize / (10 * nVertices);
-        this.selectedNodes = [];
+
     }
 
     generateRandomAdjacencyMatrix() {
