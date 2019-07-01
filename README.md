@@ -2,7 +2,7 @@
 
 Website hosted with pythonanywhere.com [here (under development)](http://jjudge.pythonanywhere.com/)  
 
-The goal of this web app game is to provide a discovery-based, fun, visual introduction to the complexity NP-hard problems. The user is asked to manually find a largest independent set in a randomly-generated unweighted, undirected graph. The puzzles will become increasingly large and edge-dense, familiarizing the user with a detailed understanding of the complexity of NP-complete problems. 
+The goal of this web app game is to provide a discovery-based, fun, visual introduction to the complexity NP-hard problems. The user is asked to manually find a largest independent set in a randomly-generated, unweighted, undirected graph. The puzzles will become increasingly large and edge-dense, familiarizing the user with a visual, thoughtful understanding of the independent set decision problem. 
 
 ![Prototype demo image.](fierceIndpDemo.png)
 
