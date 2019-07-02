@@ -1,4 +1,5 @@
 
+
 function locDistance(loc1,loc2) {
     var i2 = Math.pow((loc1.i - loc2.i), 2);
     var j2 = Math.pow((loc1.j - loc2.j), 2);
@@ -62,7 +63,7 @@ class GraphGraphics extends Graph {
         return true;
     }
 
-    handleClick(clickPxLoc,button) {
+    async handleClick(clickPxLoc,button) {
         //console.log("pressed:" + button); // 0 is left, 2 is right
         var nd = this.locToNodeIndex(clickPxLoc);
         if (nd != null) {
@@ -73,6 +74,7 @@ class GraphGraphics extends Graph {
                     console.log(nd + " is indep in selected set:" + this.selectedNodes);
                     this.printNode(ndLoc, this.blueColor);
                     if(this.isPuzzleSolved()) {
+                        await sleep(30);
                         alert("puzzle is solved.");
                         this.clearCanvas();
                         startGame();

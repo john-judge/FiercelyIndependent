@@ -19,8 +19,6 @@ class Graph {
         this.printAdjacencyMatrix();
 
         this.indepNum = this.getIndependenceNumber();
-        console.log("indep num: " + this.indepNum);
-
     }
 
     generateRandomAdjacencyMatrix() {
@@ -107,6 +105,7 @@ class Graph {
         var maxWithout = this.internalIndepNum(buildList,considerNext);
         buildList.push(consideredYet);
         var maxWith = this.internalIndepNum(buildList,considerNext);
+        buildList.pop();
         return Math.max(maxWithout,maxWith);
     }
 }

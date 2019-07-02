@@ -16,6 +16,12 @@ class Loc {
 
 
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve,ms));
+}
+
+
+
 function getClickLocation(canvas, event, screenSize) {
     var bounds = canvas.getBoundingClientRect();
     var x = event.clientX - bounds.left;
