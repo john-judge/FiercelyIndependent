@@ -4,7 +4,9 @@ Website hosted with pythonanywhere.com [here (under development)](http://jjudge.
 
 The goal of this web app game is to provide a discovery-based, fun, visual introduction to the complexity of NP-complete problems. The user is asked to manually find a largest independent set in a randomly-generated, unweighted, undirected graph. The puzzles will become increasingly large and edge-dense, familiarizing the user with a visual, thoughtful understanding of the independent set decision problem. 
 
-![Prototype demo image.](fierceIndpDemo.png)
+![Prototype demo image.](fierceIndepDemo1.png)
+
+
 
 # Design Plan Overview
 
@@ -15,4 +17,4 @@ When a user clicks on a node, it will be selected and colored blue, and all of i
 
 The website is currently database-backed and supports user registration and time-stamped, public comments. Drag and drop graph rearrangement will be available in later versions. Also see design doc PDF.
 
-
+![Prototype demo image.](fierceIndpDemo.png)
