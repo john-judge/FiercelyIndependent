@@ -10,10 +10,15 @@ function locDistance(loc1,loc2) {
 
 class GraphGraphics extends Graph {
 
-    constructor(screenSize, nVertices, density) {
+    constructor(screenSize, lvl) {
 
+
+
+        var nVertices = 4 + Math.floor(Math.min(lvl / 2 ,7));
+        var density = 0.2 + Math.min(lvl / 50 ,0.2);
         super(nVertices, density);
 
+        this.level = lvl;
         this.screenSize = screenSize;
         this.nodeLocs = this.initNodeLocations();
         this.nodeRadius = screenSize / 40;
@@ -54,9 +59,7 @@ class GraphGraphics extends Graph {
         // is the node independent with the current THIS.SELECTEDNODES?
         for(var i = 0; i < this.selectedNodes.length; i++) {
             var nd = this.selectedNodes[i];
-            console.log(nd);
             if(this.areAdjacent(nd,node)) {
-                console.log("" + nd + " and " + node + " are adj");
                 return false;
             }
         }
@@ -71,13 +74,11 @@ class GraphGraphics extends Graph {
                 if(this.isLegalSelection(nd)) {
                     var ndLoc = this.nodeLocs[nd];
                     this.selectNode(nd);
-                    console.log(nd + " is indep in selected set:" + this.selectedNodes);
                     this.printNode(ndLoc, this.blueColor);
                     if(this.isPuzzleSolved()) {
                         await sleep(30);
-                        alert("puzzle is solved.");
-                        this.clearCanvas();
-                        startGame();
+                        alert("Level " + this.level + " is solved.");
+                        this.nextLevel();
                     }
                 }
             } else {
@@ -160,6 +161,11 @@ class GraphGraphics extends Graph {
         for(var i = 0; i < this.nVertices; i++) {
             this.printNode(this.nodeLocs[i],this.greenColor);
         }
+    }
+
+    nextLevel() {
+        this.clearCanvas();
+        startGame(this.level + 1);
     }
 
 

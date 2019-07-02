@@ -99,8 +99,8 @@
 
 
         <script>
-        startGame();
         const graphCanvas = document.getElementById('graph');
+        startGame(0);
         graphCanvas.addEventListener('mousedown', function(event) {
             var clickedPxLoc = getClickLocation(graphCanvas,event);
             graphCanvas.gameState.handleClick(clickedPxLoc, event.button);
@@ -109,14 +109,14 @@
             passive: true} );
 
 
-        function startGame() {
+        function startGame(lvl) {
             const graphCanvas = document.getElementById('graph');
-            var nVertices = 6;
-            var density = 0.35;
+            //console.log(lvl);
             var canvasSize = 600;
-            graphCanvas.gameState = new GraphGraphics(canvasSize, nVertices, density);
+            graphCanvas.gameState = new GraphGraphics(canvasSize, lvl);
             graphCanvas.gameState.initPrint();
         }
+
         </script>
 
 
