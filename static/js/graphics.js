@@ -14,8 +14,8 @@ class GraphGraphics extends Graph {
 
 
 
-        var nVertices = 4 + Math.floor(Math.min(lvl / 2 ,7));
-        var density = 0.2 + Math.min(lvl / 50 ,0.2);
+        var nVertices = Math.floor(5.5 +  Math.min(lvl / 2 ,6));
+        var density = 0.24 + Math.min(lvl / 50 ,0.2);
         super(nVertices, density);
 
         this.level = lvl;
@@ -77,7 +77,7 @@ class GraphGraphics extends Graph {
                     this.printNode(ndLoc, this.blueColor);
                     if(this.isPuzzleSolved()) {
                         await sleep(30);
-                        alert("Level " + this.level + " is solved.");
+                        alert("Level " + (this.level + 1) + " is solved.");
                         this.nextLevel();
                     }
                 }

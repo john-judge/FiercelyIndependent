@@ -1,6 +1,3 @@
-
-# A very simple Flask Hello World app for you to get started with...
-
 from datetime import datetime
 from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
@@ -11,7 +8,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, ValidationError,EqualTo #Email
 import os
-
 
 class LoginForm(FlaskForm):
     # currently not used
@@ -37,16 +33,11 @@ class RegistrationForm(FlaskForm):
 #        if user is not None:
 #            raise ValidationError('Use a different email')
 
-
 class Config(object):
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'asdawdsaff032jf3jifa3j09'
-
-
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'ekxifasjwf032jf3jifa3j09'
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
-
-
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="jjudge",
@@ -68,6 +59,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128))
     password_hash = db.Column(db.String(128))
+    score = db.Column(db.Integer)
 
     def __init__(self,username):
         self.username = username
@@ -81,6 +73,8 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return self.username
 
+    def get_score(self):
+        return self.score
 
 class Comment(db.Model):
     __tablename__ = "comments"
@@ -97,7 +91,6 @@ class Comment(db.Model):
 app.config.from_object(Config)
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 
 
 @login_manager.user_loader
@@ -131,7 +124,6 @@ def login():
     login_user(user)
     return redirect(url_for('index'))
 
-
 @app.route("/logout/")
 @login_required
 def logout():
@@ -153,6 +145,12 @@ def register():
     return render_template('register.html',title="Register",form=form)
 
 
+@app.route('/score',methods=['POST'])
+def updateScore(newScore):
+    if current_user.is_authenticated:
+        current_user.score = newScore
+        db.session.commit()
+    return redirect(url_for('index'))
 
 
 

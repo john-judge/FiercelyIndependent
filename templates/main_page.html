@@ -32,7 +32,7 @@
                 {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('login') }}">Login/Register to leave comments & track your score.</a> </li>
                 {% endif %}
             </ul>
         </div>
@@ -68,6 +68,13 @@
                     {% else %}
                         anonymous rabbit
                     {% endif %}
+                        (Score:
+                    {% if comment.score %}
+                        {{ comment.commenter.score }}
+                    {% else %}
+                        0
+                    {% endif %}
+                        )
                 </small>
             </div>
         {% endfor %}
@@ -89,13 +96,16 @@
 
         </div class="container">
 
+        <!-- jquery script -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
         <script src="{{ url_for('static',filename='/js/loc.js') }}"></script>
 
         <script src="{{ url_for('static',filename='/js/graph.js') }}"></script>
 
         <script src="{{ url_for('static',filename='/js/graphics.js') }}"></script>
 
-
+        <script src="{{ url_for('static',filename='/js/query.js') }}"></script>
 
 
         <script>
@@ -111,11 +121,11 @@
 
         function startGame(lvl) {
             const graphCanvas = document.getElementById('graph');
-            //console.log(lvl);
             var canvasSize = 600;
             graphCanvas.gameState = new GraphGraphics(canvasSize, lvl);
             graphCanvas.gameState.initPrint();
         }
+
 
         </script>
 

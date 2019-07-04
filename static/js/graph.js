@@ -13,13 +13,14 @@ class Graph {
 
         this.nVertices = nVertices;
         this.density = density;
-        console.log("# vertices: " + nVertices, " density: " + density);
 
         this.generateRandomAdjacencyMatrix();
         this.validateAdjacencyMatrix();
         this.printAdjacencyMatrix();
 
         this.indepNum = this.getIndependenceNumber();
+        console.log("# vertices: " + nVertices, " density: " +
+            density + " indep #: " + this.indepNum);
     }
 
     generateRandomAdjacencyMatrix() {
