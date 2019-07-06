@@ -154,7 +154,7 @@ def register():
 @app.route('/score',methods=['GET','POST'])
 def score():
     if current_user.is_authenticated:
-        sc = request.form['score'] #args.get('score',0,type=int)
+        #sc = request.args.get('score',0,type=int)
         current_user.incrScore()
         db.session.commit()
     return redirect(url_for('index'))

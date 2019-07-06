@@ -19,7 +19,7 @@ class GraphGraphics extends Graph {
         super(nVertices, density);
 
         this.level = lvl;
-        this.threshXP = 5;
+        this.threshXP = 3;
         this.screenSize = screenSize;
         this.nodeLocs = this.initNodeLocations();
         this.nodeRadius = screenSize / 40;
