@@ -14,11 +14,12 @@ class GraphGraphics extends Graph {
 
 
 
-        var nVertices = Math.floor(5.5 +  Math.min(lvl / 2 ,6));
+        var nVertices = Math.floor(5.5 + Math.min(lvl / 2 ,6));
         var density = 0.24 + Math.min(lvl / 50 ,0.2);
         super(nVertices, density);
 
         this.level = lvl;
+        this.threshXP = 5;
         this.screenSize = screenSize;
         this.nodeLocs = this.initNodeLocations();
         this.nodeRadius = screenSize / 40;
@@ -77,7 +78,8 @@ class GraphGraphics extends Graph {
                     this.printNode(ndLoc, this.blueColor);
                     if(this.isPuzzleSolved()) {
                         await sleep(30);
-                        alert("Level " + (this.level + 1) + " is solved.");
+                        alert("Level " + (this.level + 1) + " is solved. +" +
+                            ((this.level >= this.threshXP) ? 1 : 0) + " XP earned" );
                         this.nextLevel();
                     }
                 }
@@ -164,6 +166,9 @@ class GraphGraphics extends Graph {
     }
 
     nextLevel() {
+        if (this.level >= this.threshXP){
+            incrScore();
+        }
         this.clearCanvas();
         startGame(this.level + 1);
     }

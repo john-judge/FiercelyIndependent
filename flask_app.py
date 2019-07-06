@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, flash, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import login_user, LoginManager, UserMixin, logout_user, login_required, current_user
@@ -76,6 +76,12 @@ class User(UserMixin, db.Model):
     def get_score(self):
         return self.score
 
+    def set_score(self,newScore):
+        self.score = max(newScore,self.score)
+
+    def incrScore(self):
+        self.score += 1
+
 class Comment(db.Model):
     __tablename__ = "comments"
 
@@ -140,15 +146,16 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        #flash("You are now registered.")
+        flash("You are now registered.")
         return redirect(url_for('login'))
     return render_template('register.html',title="Register",form=form)
 
 
-@app.route('/score',methods=['POST'])
-def updateScore(newScore):
+@app.route('/score',methods=['GET','POST'])
+def score():
     if current_user.is_authenticated:
-        current_user.score = newScore
+        sc = request.form['score'] #args.get('score',0,type=int)
+        current_user.incrScore()
         db.session.commit()
     return redirect(url_for('index'))
 

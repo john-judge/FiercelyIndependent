@@ -32,11 +32,20 @@
                 {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('login') }}">Login/Register to leave comments & track your score.</a> </li>
+                    <li><a href="{{ url_for('login') }}">Login/Register</a> </li>
                 {% endif %}
             </ul>
         </div>
         </nav>
+
+    <p>
+        &nbsp; Find a largest independent set.
+        <br> <br>
+        &nbsp; (In plain English:
+        Select as many circles as possible.
+        You cannot select two circles at the same time
+        if they have a line between them.)
+    </p>
 
 
     <p align="center">
@@ -45,6 +54,8 @@
             Your browser does not support canvas. Get a new browser.
         </canvas>
     <p>
+
+    <p> &nbsp; Log in to leave comments and/or start earning XP at level 6.</p>
 
 
 
@@ -68,8 +79,8 @@
                     {% else %}
                         anonymous rabbit
                     {% endif %}
-                        (Score:
-                    {% if comment.score %}
+                        (Total XP:
+                    {% if comment.commenter.score %}
                         {{ comment.commenter.score }}
                     {% else %}
                         0
