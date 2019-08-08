@@ -1,6 +1,6 @@
 # "Fiercely Independent": The Game
 
-Website hosted with pythonanywhere.com [here (under development)](http://jjudge.pythonanywhere.com/)  
+Website hosted with pythonanywhere.com [here](http://jjudge.pythonanywhere.com/)  
 
 The goal of this web app game is to provide a discovery-based, fun, visual introduction to the complexity of NP-complete problems. The user is asked to manually find a largest independent set in a randomly-generated, unweighted, undirected graph. The puzzles will become increasingly large and edge-dense, familiarizing the user with a visual, thoughtful understanding of the independent set decision problem. 
 
@@ -15,6 +15,6 @@ of the square canvas element side length. The edges between nodes will be drawn 
 
 When a user clicks on a node, it will be selected and colored blue, and all of its neighbors will be deselected and returned to the original dark green. The puzzle is solved when the user manages to reach a state where a maximum independent set is selected. Score is to be incremented and stored in the database; a congratulatory message is printed, and upon user taking option to proceed, a new graph puzzle is generated.
 
-The website is currently database-backed and supports user registration and time-stamped, public comments. Drag and drop graph rearrangement will be available in later versions. Also see design doc PDF.
+The website is database-backed; supports user registration and time-stamped, public comments. Drag and drop graph rearrangement will be available in later versions. Also see design doc PDF.
 
 ![Prototype demo image.](fierceIndpDemo.png)
